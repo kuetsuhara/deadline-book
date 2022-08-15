@@ -1,0 +1,57 @@
+# AMI Search
+パブリックイメージで 357466774442 で絞り込み
+Linux, 10.1.18 でさらに絞る
+
+# 使用するAMI
+Deadline Worker Base Image Linux 2 10.1.22.4 2022-06-24T210021Z
+ami-08be7ae79959208e7
+
+# t2.smallで起動（microでも可）
+
+
+# download from s3
+aws s3 cp s3://bros-dev-tmp-bucket/deadline/MtoA-5.0.0-linux-2019.run ./
+
+# change mod
+chmod 777 MtoA-5.0.0-linux-2019.run
+
+# run mtoa
+./MtoA-5.0.0-linux-2019.run
+
+# MtoA必須ライブラリ
+sudo yum install -y libX11
+
+# Arnoldの実行
+/usr/autodesk/arnold/maya2019/bin/kick
+
+
+# Maya2019 Linux installer
+sudo mkdir maya-installer
+cd maya-installer/
+sudo wget https://edutrial.autodesk.com/NetSWDLD/2019/MAYA/EC2C6A7B-1F1B-4522-0054-4FF79B4B73B5/ESD/Autodesk_Maya_2019_Linux_64bit.tgz
+
+
+# 展開
+tar -xzvf Autodesk_Maya_2019_Linux_64bit.tgz
+
+# install Maya
+sudo rpm -ivh Maya2019_64-2019.0-7966.x86_64.rpm adlmapps14-14.0.23-0.x86_64.rpm adlmflexnetclient-14.0.23-0.x86_64.rpm
+
+# ライセンスファイルの作成
+sudo vim /usr/autodesk/maya2019/bin/License.env
+
+MAYA_LICENSE=657K1
+MAYA_LICENSE_METHOD=network
+
+# install requirements
+sudo yum install libssl1.0.0 gcc  libssl-dev libjpeg62 alien csh tcsh libaudiofile-dev libglw1-mesa elfutils libglw1-mesa-dev mesa-utils xfstt xfonts-100dpi xfonts-75dpi ttf-mscorefonts-installer libfam0 libfam-dev libcurl4-openssl-dev libtbb-dev
+sudo yum install -y mesa-libGLU-devel libXp.x86_64 libXmu.x86_64 libXpm.x86_64 fontconfig-devel libXinerama.x86_64 gamin libXrender libXcomposite gstreamer gstreamer1-plugins-base libXcursor libXtst.x86_64
+sudo yum install -y libXrender libXcomposite gstreamer gstreamer1-plugins-base libXcursor libXtst.x86_64
+
+# Mayaの実行
+/usr/autodesk/maya/bin/maya
+maya: Autodesk Maya 2019Licensing ErrorA licensing error occurred that Autodesk systems were not able to handle for you. Please contact Autodesk Customer Support for help in resolving this error.checkoutLicense: Failed to authorize license
+
+
+Repository setting Dynamic Enable
+Limits arnold-byol 追加
