@@ -10,7 +10,7 @@ ami-08be7ae79959208e7
 
 
 # download from s3
-aws s3 cp s3://bros-dev-tmp-bucket/deadline/MtoA-5.0.0-linux-2019.run ./
+aws s3 cp s3://your-bucket/deadline/MtoA-5.0.0-linux-2019.run ./
 
 # change mod
 chmod 777 MtoA-5.0.0-linux-2019.run
